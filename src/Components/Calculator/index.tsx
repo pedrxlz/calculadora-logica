@@ -1,23 +1,33 @@
 import { Flex, Grid, GridItem } from "@chakra-ui/react";
 import { useCallback, useState } from "react";
 import Display from "../Display";
+import { yard, rpn } from "../../calculator";
 import * as S from "./styles";
 
 const Calculator = () => {
   const [value, setValue] = useState<string>("");
 
-  const handleButtonClick = useCallback((value: string) => {
+  const buttonClickHandler = useCallback((value: string) => {
     setValue((prev) => {
-      if (value === "AC") {
-        return "";
-      }
+      switch (value) {
+        case "AC":
+          return "";
 
-      if (value === "DEL") {
-        return prev.slice(0, -1);
-      }
+        case "DEL":
+          return prev.slice(0, -1);
 
-      return prev + value;
+        case "=":
+          return solveEquation(prev);
+
+        default:
+          return prev + value;
+      }
     });
+  }, []);
+
+  const solveEquation = useCallback((equation: string) => {
+    console.log(rpn(yard(equation))); // 3 4 5 * 3 2 + / +
+    return equation;
   }, []);
 
   return (
@@ -33,7 +43,7 @@ const Calculator = () => {
             <S.CalculatorButton
               value={"AC"}
               onClick={(e) =>
-                handleButtonClick((e.target as HTMLInputElement).value)
+                buttonClickHandler((e.target as HTMLInputElement).value)
               }
             >
               AC
@@ -44,7 +54,7 @@ const Calculator = () => {
             <S.CalculatorButton
               value={"DEL"}
               onClick={(e) =>
-                handleButtonClick((e.target as HTMLInputElement).value)
+                buttonClickHandler((e.target as HTMLInputElement).value)
               }
             >
               DEL
@@ -55,7 +65,7 @@ const Calculator = () => {
             <S.CalculatorButton
               value={"="}
               onClick={(e) =>
-                handleButtonClick((e.target as HTMLInputElement).value)
+                buttonClickHandler((e.target as HTMLInputElement).value)
               }
             >
               =
@@ -63,29 +73,30 @@ const Calculator = () => {
           </GridItem>
           <GridItem>
             <S.CalculatorButton
-              value={"p"}
+              value={"T"}
               onClick={(e) =>
-                handleButtonClick((e.target as HTMLInputElement).value)
+                buttonClickHandler((e.target as HTMLInputElement).value)
               }
             >
-              p
+              T
             </S.CalculatorButton>
           </GridItem>
           <GridItem>
             <S.CalculatorButton
-              value={"q"}
+              value={"F"}
               onClick={(e) =>
-                handleButtonClick((e.target as HTMLInputElement).value)
+                buttonClickHandler((e.target as HTMLInputElement).value)
               }
             >
-              q
+              F
             </S.CalculatorButton>
           </GridItem>
           <GridItem>
             <S.CalculatorButton
+              disabled
               value={"r"}
               onClick={(e) =>
-                handleButtonClick((e.target as HTMLInputElement).value)
+                buttonClickHandler((e.target as HTMLInputElement).value)
               }
             >
               r
@@ -93,9 +104,10 @@ const Calculator = () => {
           </GridItem>
           <GridItem>
             <S.CalculatorButton
+              disabled
               value={"s"}
               onClick={(e) =>
-                handleButtonClick((e.target as HTMLInputElement).value)
+                buttonClickHandler((e.target as HTMLInputElement).value)
               }
             >
               s
@@ -106,7 +118,7 @@ const Calculator = () => {
             <S.CalculatorButton
               value={"∧"}
               onClick={(e) =>
-                handleButtonClick((e.target as HTMLInputElement).value)
+                buttonClickHandler((e.target as HTMLInputElement).value)
               }
             >
               ∧
@@ -116,7 +128,7 @@ const Calculator = () => {
             <S.CalculatorButton
               value={"∨"}
               onClick={(e) =>
-                handleButtonClick((e.target as HTMLInputElement).value)
+                buttonClickHandler((e.target as HTMLInputElement).value)
               }
             >
               ∨
@@ -126,7 +138,7 @@ const Calculator = () => {
             <S.CalculatorButton
               value={"~"}
               onClick={(e) =>
-                handleButtonClick((e.target as HTMLInputElement).value)
+                buttonClickHandler((e.target as HTMLInputElement).value)
               }
             >
               ~
@@ -136,7 +148,7 @@ const Calculator = () => {
             <S.CalculatorButton
               value={"→"}
               onClick={(e) =>
-                handleButtonClick((e.target as HTMLInputElement).value)
+                buttonClickHandler((e.target as HTMLInputElement).value)
               }
             >
               →
@@ -146,7 +158,7 @@ const Calculator = () => {
             <S.CalculatorButton
               value={"↔"}
               onClick={(e) =>
-                handleButtonClick((e.target as HTMLInputElement).value)
+                buttonClickHandler((e.target as HTMLInputElement).value)
               }
             >
               ↔
@@ -156,7 +168,7 @@ const Calculator = () => {
             <S.CalculatorButton
               value={"("}
               onClick={(e) =>
-                handleButtonClick((e.target as HTMLInputElement).value)
+                buttonClickHandler((e.target as HTMLInputElement).value)
               }
             >
               (
@@ -166,7 +178,7 @@ const Calculator = () => {
             <S.CalculatorButton
               value={")"}
               onClick={(e) =>
-                handleButtonClick((e.target as HTMLInputElement).value)
+                buttonClickHandler((e.target as HTMLInputElement).value)
               }
             >
               )
