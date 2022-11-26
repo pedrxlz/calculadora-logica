@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import { Button, ModalBody } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 
 export const Container = styled.div`
@@ -18,4 +18,11 @@ export const CalculatorButton = styled(Button)`
   padding: 0.5rem 0;
   width: 100%;
   height: 100%;
+`;
+
+export const HelpBody = styled(ModalBody)`
+  padding: 0 20px;
+  ul {
+    padding: 0 40px;
+  }
 `;

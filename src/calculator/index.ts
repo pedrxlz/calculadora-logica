@@ -18,11 +18,14 @@ export const yard = (infix) => {
         stack.push(token);
       }
 
-      if (token === "(") {
+      if (token === "(" || token === "~") {
         stack.push(token);
       }
 
       if (token === ")") {
+        if (stack.indexOf("(") === -1) {
+          throw new Error("Parênteses não balanceados");
+        }
         while (peek(stack) !== "(") output.push(stack.pop());
         stack.pop();
       }
@@ -33,18 +36,40 @@ export const yard = (infix) => {
     .join(" ");
 };
 
+const getValue = (token) => {
+  if (token === "T") {
+    return true;
+  } else if (token === "F") {
+    return false;
+  } else {
+    return token;
+  }
+};
+
 export const solve = (a, b, c) => {
-  let A = a === "T" ? true : false;
-  let B = c === "T" ? true : false;
+  if (b === "~") {
+    return !a;
+  }
   if (b === "∧") {
-    return A === B;
+    if (getValue(a) && getValue(c)) return true;
+    else return false;
+  }
+  if (b === "∨") {
+    if (getValue(a) || getValue(c)) return true;
+    else return false;
+  }
+  if (b === "→") {
+    if (getValue(a) && !getValue(c)) return false;
+    else return true;
+  }
+  if (b === "↔") {
+    return getValue(a) === getValue(c);
   }
 };
 
 export const rpn = (ts, s = []) => {
-  ts.split(" ").forEach((t, i) =>
+  ts.split(" ").forEach((t) =>
     s.push(t === "T" || t === "F" ? t : solve(s.splice(-2, 1)[0], t, s.pop()))
   );
-  console.log(s);
   return s[0];
 };
