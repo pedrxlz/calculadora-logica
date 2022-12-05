@@ -14,3 +14,35 @@ Essa calculadora considera a precedência dos operadores e os parêntes durante 
 Então, uma entrada como `t->f^fvt` retornará o resultado `T`.
 
 Foi se implementado o algoritmo [Shunting-yard](https://en.wikipedia.org/wiki/Shunting-yard_algorithm), que recebe uma expressão com notação infixa, e a converte para notação posfixa, também conhecida como [notação polonesa reversa](https://pt.wikipedia.org/wiki/Nota%C3%A7%C3%A3o_polonesa_inversa), onde então é processada na função [rpn](https://github.com/pedrxlz/calculadora-logica/blob/2923d93614b74f9aba404750b8b3f420a0eb59ec/src/calculator/index.ts#L70).
+
+Dependências do projeto:
+
+- [ReactJS](https://reactjs.org/)
+
+- [Chakra UI](https://chakra-ui.com/docs/components)
+
+- [ViteJS](https://vitejs.dev/guide/)
+
+- [Typescript](https://www.typescriptlang.org/docs/)
+
+## Como executar
+
+Clonando repositório
+```bash
+$ git clone https://github.com/pedrxlz/calculadora-logica.git
+```
+
+Acessando diretório do projeto
+```bash
+$ cd calculadora-logica
+```
+
+Instalando dependências
+```bash
+$ yarn
+```
+
+Rodando projeto
+```bash
+$ yarn dev
+```
